@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Go Weekly Radar — 2026-06-29</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --fg: #e6edf3;
+    --accent: #58a6ff;
+    --accent2: #3fb950;
+    --accent3: #d29922;
+    --accent4: #f85149;
+    --border: #30363d;
+    --card: #161b22;
+    --muted: #8b949e;
+    --heading: #f0f6fc;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #ffffff;
+      --fg: #1f2328;
+      --accent: #0969da;
+      --accent2: #1a7f37;
+      --accent3: #9a6700;
+      --accent4: #cf222e;
+      --border: #d0d7de;
+      --card: #f6f8fa;
+      --muted: #656d76;
+      --heading: #1f2328;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  h1 { color: var(--heading); font-size: 1.8em; margin-bottom: 4px; }
+  .subtitle { color: var(--muted); font-size: 0.9em; margin-bottom: 24px; }
+  h2 { color: var(--heading); font-size: 1.3em; margin: 20px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  details { margin-bottom: 8px; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  details summary {
+    padding: 10px 14px;
+    background: var(--card);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.05em;
+    color: var(--heading);
+    user-select: none;
+  }
+  details summary:hover { background: var(--border); }
+  details[open] summary { border-bottom: 1px solid var(--border); }
+  .section-content { padding: 12px 14px; }
+  .item { margin-bottom: 12px; }
+  .item-title { font-weight: 600; color: var(--accent); }
+  .item-title a { color: var(--accent); text-decoration: none; }
+  .item-title a:hover { text-decoration: underline; }
+  .item-meta { color: var(--muted); font-size: 0.85em; margin-top: 2px; }
+  .item-desc { margin-top: 4px; font-size: 0.92em; }
+  .tag {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 12px;
+    font-size: 0.75em;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .tag-accepted { background: #1a7f3722; color: var(--accent2); border: 1px solid var(--accent2); }
+  .tag-proposal { background: #d2992222; color: var(--accent3); border: 1px solid var(--accent3); }
+  .tag-security { background: #f8514922; color: var(--accent4); border: 1px solid var(--accent4); }
+  .tag-release { background: #58a6ff22; color: var(--accent); border: 1px solid var(--accent); }
+  .tag-new { background: #3fb95022; color: var(--accent2); border: 1px solid var(--accent2); }
+  .stars { color: var(--accent3); font-size: 0.85em; }
+  ul { padding-left: 20px; margin: 6px 0; }
+  li { margin-bottom: 4px; }
+  .quiet { color: var(--muted); font-style: italic; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+  .footer { color: var(--muted); font-size: 0.8em; text-align: center; margin-top: 30px; }
+</style>
+</head>
+<body>
+
+<h1>🛰️ Go Weekly Radar</h1>
+<p class="subtitle">2026-06-22 → 2026-06-29 · Generated 2026-06-29 07:00 UTC</p>
+
+<details open>
+<summary>🔧 Official Go</summary>
+<div class="section-content">
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-release">Release</span> Go 1.27 RC1</div>
+  <div class="item-meta">2026-06-18 · <code>go1.27rc1</code></div>
+  <div class="item-desc">
+    Go 1.27 Release Candidate 1 is out. Includes experimental SIMD support under <code>GOEXPERIMENT=simd</code>, portable size-agnostic <code>simd</code> package, updated <code>archsimd</code> API for AMD64, and <code>archsimd</code> support for Wasm and ARM64. Some breaking API changes for AMD64 archsimd.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-accepted">Accepted</span> Landlock Process Sandboxing for Linux</div>
+  <div class="item-desc">
+    A 2024 proposal for Go to support process sandboxing on Linux using Landlock LSM has been accepted. Will allow Go programs to restrict their own filesystem access using Landlock rules.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-accepted">Accepted</span> simd/archsimd: Architecture-Specific SIMD Intrinsics (GOEXPERIMENT) — #73787 ★349</div>
+  <div class="item-desc">
+    The umbrella proposal for architecture-specific SIMD intrinsics under a GOEXPERIMENT. Go 1.27 RC1 includes the first implementation for AMD64, ARM64, and Wasm.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-accepted">Accepted</span> simd: Architecture & Vector-Size Agnostic SIMD Intrinsics — #78902</div>
+  <div class="item-desc">
+    Second-level SIMD API providing a portable interface to SIMD vectors not tied to a particular architecture or vector length. Auto-selects between AVX, AVX2, AVX512. Supported vector methods are the intersection of Wasm SIMD API and current AMD64 SIMD.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-proposal">Closed</span> flag: add All, AllSet iterators — #65675</div>
+  <div class="item-desc">
+    Proposal to add <code>All() iter.Seq[*Flag]</code> and <code>AllSet() iter.Seq[*Flag]</code> to the flag package, making flag iteration compatible with range-func. Closed with positive reception.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-proposal">Closed</span> sort: add SearchWithError — #74384</div>
+  <div class="item-desc">
+    Adds <code>sort.SearchWithError</code> allowing the search function to return an error and exit early. PR at golang/go#74372. Frozen due to age.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-proposal">Closed</span> x/sync/singleflight: make Group.Do generic — #80120</div>
+  <div class="item-desc">
+    Proposal to make <code>singleflight.Group.Do</code> generic: <code>Do[T any](key string, fn func() (T, error)) (T, error, bool)</code>. Commenters noted this is a breaking change.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-proposal">Closed</span> errors: add All and AllAs iterators — #66455</div>
+  <div class="item-desc">
+    Proposal to add iterators for walking the error tree, similar to <code>errors.Is</code>/<code>As</code> but in a single pass. Frozen due to age.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-proposal">Closed</span> x/net/http2: deprecate ClientConnPool — #77695</div>
+  <div class="item-desc">
+    Part of the x/net/http2 → std migration (#67810). <code>ClientConnPool</code> has been superseded by the client connection API from #75772.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-proposal">Open</span> net/http: add MethodQuery constant — #80058 ★11</div>
+  <div class="item-desc">
+    RFC 10008 defines the HTTP QUERY method. Proposal to add <code>net/http.MethodQuery</code> constant, following the same pattern as MethodPatch.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-proposal">Open</span> spec: interface literals — #25860 ★93</div>
+  <div class="item-desc">
+    Long-standing proposal for interface literals in the Go spec. Still under discussion.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-proposal">Open</span> all: add wasip3/wasm port — #77141 ★60</div>
+  <div class="item-desc">
+    Proposal to add a wasip3/wasm port to Go, following wasip1.
+  </div>
+</div>
+
+<h3>Recent Compiler & Runtime Commits</h3>
+<ul>
+  <li><code>6565f55</code> David Chase: cmd/compile — repair mask optimizations</li>
+  <li><code>63b51fc</code> Michael Pratt: runtime — lock M for entire fast path</li>
+  <li><code>fe4da8e</code> Michael Pratt: runtime — unify mallocStub fast/slow blocks</li>
+  <li><code>48bf922</code> Cherry Mui: cmd/compile, simd/archsimd — Wasm Get/SetElem for out-of-bound constants</li>
+  <li><code>a2b3c73</code> Cherry Mui: simd/archsimd — correct ARM64 IfElse semantics</li>
+  <li><code>2a4fbc3</code> Cuong Manh Le: cmd/compile — fix invalid code generation for OINDEXMAP</li>
+  <li><code>3aeef48</code> Russ Cox: os — test and fix ReadDir("/dev/fd") on macOS</li>
+  <li><code>cabdf7f</code> harjoth: net/http — validate trailers when writing requests and responses</li>
+  <li><code>76d509e</code> harjoth: math/rand/v2 — document PCG and ChaCha8 tradeoffs</li>
+  <li><code>2827927</code> Mark Freeman: go/types, types2 — improve error message for incomplete alias hashing</li>
+</ul>
+
+</div>
+</details>
+
+<details open>
+<summary>📦 Ecosystem Highlights</summary>
+<div class="section-content">
+
+<div class="item">
+  <div class="item-title">Delve 1.27 — Go Debugger</div>
+  <div class="item-desc">
+    Minor bump for the popular debugger. Modernization and better Go 1.27 support (generic methods, mapsplitgroup support).
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title">bbolt 1.5 — Key/Value Store</div>
+  <div class="item-desc">
+    etcd's actively-maintained fork of the Bolt key/value store. New release.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title">cockroachdb/errors 1.14.0</div>
+  <div class="item-desc">
+    Drop-in errors replacement with extra features, formatting options, and network portability of error objects.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title">asciigraph 0.10 — ASCII Line Graph Library</div>
+  <div class="item-desc">
+    Long-standing library for rendering line graphs in ASCII. v0.10 adds spectrum/heatmap gradient coloring, threshold coloring, and flicker-free realtime mode. Zero dependencies.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title">mpeg 0.6 — Pure Go MPEG Decoder</div>
+  <div class="item-desc">
+    Pure Go MPEG 1 video and MP2 audio decoder. v0.6 adds SIMD-accelerated audio decoding.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title">gocondense — Go Code Formatter</div>
+  <div class="item-desc">
+    A Go code formatter that condenses multi-line constructs into single lines of code.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title">yarr 2.7 — Yet Another RSS Reader</div>
+  <div class="item-desc">
+    Go-powered web-based feed aggregator. New release.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title">TypeScript 7.0 Release Candidate</div>
+  <div class="item-desc">
+    Microsoft's Go-powered, much-faster native port of the TypeScript compiler. RC stage.
+  </div>
+</div>
+
+<h3>Trending New Go Repos (last 7 days)</h3>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-new">New</span> <a href="https://github.com/ivorpad/mercadona-cli">ivorpad/mercadona-cli</a> <span class="stars">★230</span></div>
+  <div class="item-meta">Created 2026-06-26</div>
+  <div class="item-desc">Mercadona CLI tool. Fastest-growing Go repo this week.</div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-new">New</span> <a href="https://github.com/lxcshine/nexusbox">lxcshine/nexusbox</a> <span class="stars">★57</span></div>
+  <div class="item-meta">Created 2026-06-24 · MIT</div>
+  <div class="item-desc">Secure sandbox for AI Agents — execute shell, file, code, and browser commands in isolation via MCP.</div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-new">New</span> <a href="https://github.com/smallnest/seq">smallnest/seq</a> <span class="stars">★43</span></div>
+  <div class="item-desc">A generic library in Golang with generic method features.</div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-new">New</span> <a href="https://github.com/aidansteele/microvm-fun">aidansteele/microvm-fun</a> <span class="stars">★39</span></div>
+  <div class="item-desc">Kubernetes running on a fleet of AWS Lambda MicroVMs, with SSH access into MicroVMs.</div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-new">New</span> <a href="https://github.com/subhasundardass/tuix">subhasundardass/tuix</a> <span class="stars">★18</span></div>
+  <div class="item-desc">TUIX — lightweight, component-driven framework for creating beautiful, interactive Terminal User Interfaces (TUIs) in Go.</div>
+</div>
+
+</div>
+</details>
+
+<details open>
+<summary>🔥 Security</summary>
+<div class="section-content">
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-security">CVE-2026-39822</span> Private Track Security Issue</div>
+  <div class="item-meta">Release-blocker · vulncheck/vulndb</div>
+  <div class="item-desc">
+    Private track CVE tracked in Google's internal bug tracker. Labeled as release-blocker. Details not yet public.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-security">CVE-2026-46602</span> x/image/tiff: Lack of Tile Size Limits</div>
+  <div class="item-meta">Public track · Fixed</div>
+  <div class="item-desc">
+    TIFF images may have tiles larger than the image size. x/image/tiff didn't validate tile sizes, allowing malicious input to consume excessive memory or crash. Fixed.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-security">x/image/vp8l: Excessive Memory Allocation</span></div>
+  <div class="item-meta">Open</div>
+  <div class="item-desc">
+    VP8L images with unused Huffman tree groups can cause ~175MiB slice allocations (up to ~1.4GiB with group data). A small malicious image can trigger this.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-security">html/template: iframe srcdoc Not Properly Escaped</span></div>
+  <div class="item-meta">Open · NeedsFix</div>
+  <div class="item-desc">
+    Actions placed in iframe srcdoc attributes are not properly treated as HTML and escaped. Treated as security hardening issue due to low likelihood of exploitation.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-security">net/smtp: STARTTLS Case-Sensitivity Downgrade</span></div>
+  <div class="item-meta">Open · NeedsFix</div>
+  <div class="item-desc">
+    RFC 5321 requires EHLO keywords to be compared case-insensitively. net/smtp's STARTTLS handling is case-sensitive, allowing a downgrade attack.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-security">crypto/tls: Omit PSK in ECH Outer Client Hello</span></div>
+  <div class="item-meta">Backport to 1.25, 1.26</div>
+  <div class="item-desc">
+    Including the PSK extension in ECH outer Client Hello allows an on-path attacker to harvest and replay hellos with guessed SNI values. Fixed in master, backporting to 1.25 and 1.26.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><span class="tag tag-security">Mini Shai-Hulud Supply Chain Attack</span></div>
+  <div class="item-desc">
+    Socket reports a supply chain attack (plaguing the JS ecosystem) that has partly expanded into the Go ecosystem. Worth monitoring dependency trees.
+  </div>
+</div>
+
+</div>
+</details>
+
+<details open>
+<summary>📰 News & Articles</summary>
+<div class="section-content">
+
+<div class="item">
+  <div class="item-title"><a href="#">Shard Your Locks: Benchmarking 6 Go Cache Designs</a></div>
+  <div class="item-meta">Misha Strebkov · Google Cloud Engineer</div>
+  <div class="item-desc">
+    Benchmarked <code>sync.Mutex</code>, <code>sync.RWMutex</code>, sharded locks, and other approaches for concurrent in-memory cache guarding. Results vary significantly with workload type — benchmark against your own workload.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><a href="#">On Excessive nil Pointer Checks</a></div>
+  <div class="item-meta">Konrad Reiche</div>
+  <div class="item-desc">
+    Argues that most defensive <code>if ... != nil</code> guards are a code smell. Recommends "fail fast and fail early" at construction time instead of accepting broken objects.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><a href="#">How Channel Iteration Leaks Goroutines</a></div>
+  <div class="item-meta">Redowan Delowar</div>
+  <div class="item-desc">
+    Ranging over a channel that never closes leaks the goroutine forever. Dissects a real cron scheduler bug and the fix.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><a href="#">Don't Run SQL Migrations in Tests: How I Sped Up the Test Suite By 2x</a></div>
+  <div class="item-meta">Philippe Gaultier</div>
+  <div class="item-desc">
+    Caches a "golden" migrated database and clones it per test, avoiding migration overhead in every test run.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><a href="#">I Taught a Bucket to Speak Git</a></div>
+  <div class="item-meta">Xe Iaso (Tigris)</div>
+  <div class="item-desc">
+    Wiring together pure-Go <code>go-git</code> with Tigris object storage to build a stateless Git server.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title"><a href="#">Socket Activation for a Go HTTP Service on Linux with systemd</a></div>
+  <div class="item-meta">Chris Korneck</div>
+  <div class="item-desc">
+    How to set up socket activation for a Go HTTP service using systemd's socket unit files.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title">Go 1.27: Removed GODEBUG Settings Will Panic</div>
+  <div class="item-meta">Robert Griesemer</div>
+  <div class="item-desc">
+    In Go 1.27, if the environment has a removed GODEBUG setting with a non-default value, execution will panic during initialization as part of the broader policy of removing GODEBUG flags.
+  </div>
+</div>
+
+<div class="item">
+  <div class="item-title">uuid.NewV7() Always Includes 7000 Under js/wasm</div>
+  <div class="item-meta">Hajime Hoshi (Ebitengine)</div>
+  <div class="item-desc">
+    UUIDs generated with <code>uuid.NewV7()</code> always include 7000 when running in a browser under the js/wasm target. Community working out why.
+  </div>
+</div>
+
+</div>
+</details>
+
+<hr>
+
+<div class="footer">
+  Generated by Hermes Agent · go-weekly-radar v2.3.0 · Data from GitHub API, go.dev/blog, golangweekly.com
+</div>
+
+</body>
+</html>
