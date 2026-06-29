@@ -55,7 +55,15 @@ See [`references/scraping-toolchain.md`](references/scraping-toolchain.md) for r
 ## Usage
 
 ### With Hermes Agent
-Load the skill and ask: "Run the Go weekly radar" or trigger automatically on architectural decisions.
+See [`HERMES_SETUP.md`](HERMES_SETUP.md) for full setup guide including cron job creation.
+
+**Quick install:**
+```bash
+git clone https://github.com/Runaho/go-radar-report-skill.git ~/.hermes/skills/research/go-weekly-radar
+rm -rf ~/.hermes/skills/research/go-weekly-radar/.git  # CRITICAL — .git breaks Hermes skill discovery
+```
+
+Then ask: "Run the Go weekly radar" or trigger automatically on architectural decisions.
 
 ### With Claude Code / OpenCode / Codex CLI
 Copy `SKILL.md` and `references/` into your agent's skill/instructions directory. The agent needs:

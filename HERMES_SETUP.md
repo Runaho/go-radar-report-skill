@@ -11,12 +11,25 @@ cd ~/.hermes/skills/research/
 git clone https://github.com/Runaho/go-radar-report-skill.git go-weekly-radar
 ```
 
-This places the skill at `~/.hermes/skills/research/go-weekly-radar/SKILL.md`, which Hermes auto-discovers.
+**⛔ CRITICAL: Remove the `.git` directory after cloning.** Hermes skill discovery scans directories under `~/.hermes/skills/`. A `.git` directory inside a skill folder can confuse the skill loader — the skill may not be found by cron jobs.
 
-**If the directory already exists** (e.g. an older version), remove it first:
+```bash
+rm -rf ~/.hermes/skills/research/go-weekly-radar/.git
+```
+
+**⛔ CRITICAL: Do NOT keep backup directories next to the skill.** If you're replacing an older version, do NOT rename the old directory to `go-weekly-radar.bak` and leave it in the same `research/` folder. Hermes will detect both `SKILL.md` files and refuse to load either one due to ambiguity. Remove the old directory entirely:
+
 ```bash
 rm -rf ~/.hermes/skills/research/go-weekly-radar
 git clone https://github.com/Runaho/go-radar-report-skill.git ~/.hermes/skills/research/go-weekly-radar
+rm -rf ~/.hermes/skills/research/go-weekly-radar/.git
+```
+
+**To update later** (without git, since `.git` was removed):
+```bash
+rm -rf ~/.hermes/skills/research/go-weekly-radar
+git clone https://github.com/Runaho/go-radar-report-skill.git ~/.hermes/skills/research/go-weekly-radar
+rm -rf ~/.hermes/skills/research/go-weekly-radar/.git
 ```
 
 ## 2. Required Environment

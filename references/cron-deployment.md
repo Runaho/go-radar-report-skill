@@ -63,6 +63,17 @@ Tested models (June 2026, ollama-launch cloud):
 
 **Recommendation:** `minimax-m3:cloud` for depth, `deepseek-v4-flash:cloud` for speed.
 
+## Skill Installation Pitfalls
+
+### `.git` directory breaks skill discovery
+When installing the skill via `git clone` into `~/.hermes/skills/research/go-weekly-radar/`, the `.git` directory can confuse Hermes' skill scanner. Cron jobs will report "skill not found and skipped." Always remove `.git` after cloning:
+```bash
+rm -rf ~/.hermes/skills/research/go-weekly-radar/.git
+```
+
+### Backup directories cause ambiguity
+Never keep `go-weekly-radar.bak/` (or any directory containing `SKILL.md`) next to the active skill. Hermes will find two skills with the same name and refuse to load either. Remove old versions entirely — do not rename to `.bak`.
+
 ## Self-Patching Death Spiral
 
 **Do NOT use `skill_view` or `skill_manage` during cron execution.** The skill content is already loaded in the system prompt. Reading or modifying skills mid-run burns 2-4 API calls on skill maintenance instead of the actual task.

@@ -96,6 +96,22 @@ document.body.innerText.substring(5000, 10000)
 **Cause:** Agent uses `skill_view` or `skill_manage` mid-run, burning 2-4 API calls on skill maintenance.
 **Fix:** Never use `skill_view` or `skill_manage` during execution. The skill is already loaded. Note updates for next session.
 
+### Skill not found after git clone
+**Symptom:** Cron output says "skill(s) were listed for this job but could not be found and were skipped: go-weekly-radar". Job runs with prompt-only instructions, produces lower quality output.
+**Cause:** A `.git` directory inside the skill folder (`~/.hermes/skills/research/go-weekly-radar/.git/`) confuses Hermes' skill discovery scanner.
+**Fix:** Remove `.git` after cloning:
+```bash
+rm -rf ~/.hermes/skills/research/go-weekly-radar/.git
+```
+
+### Ambiguous skill name — backup directory collision
+**Symptom:** `skill_view` returns error: "Ambiguous skill name 'go-weekly-radar': 2 skills match across your local skills dir."
+**Cause:** A backup directory (e.g. `go-weekly-radar.bak/`) with a `SKILL.md` file sits next to the active skill. Hermes detects both and refuses to load either.
+**Fix:** Never keep `.bak` directories with `SKILL.md` files inside the skills tree. Remove the backup entirely:
+```bash
+rm -rf ~/.hermes/skills/research/go-weekly-radar.bak
+```
+
 ### Terminal blocked with `pending_approval`
 **Symptom:** `terminal(command="curl ...")` returns `pending_approval` and never executes.
 **Cause:** Cron mode blocks terminal commands that require user approval.
