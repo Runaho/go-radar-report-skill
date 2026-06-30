@@ -88,6 +88,22 @@ See [`samples/go-radar-2026-06-29.html`](samples/go-radar-2026-06-29.html) for a
 
 See [`references/design-decisions.md`](references/design-decisions.md) for the rationale behind each choice.
 
+## Tested Models
+
+Benchmarked on ollama-launch cloud (June 2026):
+
+| Model | Latency/call | Output | Verdict |
+|-------|-------------|--------|---------|
+| `minimax-m3:cloud` 🏆 | 3-15s | 923 lines, 41KB | Best — deepest curation |
+| `deepseek-v4-flash:cloud` ⚡ | 2-10s | 564 lines, 23.6KB | Fast + good quality |
+| `gemma4:31b-cloud` | 4-10s | 182 lines, 7.4KB | Works, but shallow |
+| `nemotron-3-nano:30b-cloud` | 5-25s | 99 lines | Too shallow — skip |
+| `nemotron-3-super:cloud` | 40-440s | Never finished | Skip |
+
+**Recommendation:** `minimax-m3:cloud` for depth, `deepseek-v4-flash:cloud` for speed. `gemma4:31b-cloud` is the minimum viable option if latency is critical.
+
+See [`references/cron-deployment.md`](references/cron-deployment.md) for full cron setup including model selection rationale.
+
 ## Contributing
 
 PRs welcome for:
