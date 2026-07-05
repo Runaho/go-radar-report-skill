@@ -126,3 +126,14 @@ rm -rf ~/.hermes/skills/research/go-weekly-radar.bak
 **Symptom:** Tool result too large for inline response, saved to `/var/folders/.../call_function_*.txt`.
 **Cause:** Lightpanda result exceeded inline size cap (~100KB).
 **Fix:** Read the persisted file with a small script, or use `grep` via terminal.
+
+### MEDIA: tag wrapped in backticks — file never attached
+**Symptom:** Cron final response includes the file path but Telegram does NOT attach the file. User sees only the markdown summary, no `document.html` attachment.
+**Cause:** Agent wraps `MEDIA:/path/to/file.html` in backticks (e.g. `MEDIA:/path/...` ) to render it as inline code in the summary. Telegram's Markdown parser then treats the whole backtick block as literal text, NOT a media directive. The MEDIA: tag must be a raw, unstyled token on its own line for the gateway's media extractor to recognize it.
+**Fix:** Place `MEDIA:` tags OUTSIDE any markdown formatting — no backticks, no bold, no code fences. Either as a bare line, or as the value of a plain `Path:` line (no backticks):
+```
+Path: /Users/.../go-radar-2026-07-05_1710.html
+MEDIA:/Users/.../go-radar-2026-07-05_1710.html
+```
+Or omit the inline summary echo and just emit the bare `MEDIA:` line. The Telegram gateway extracts the path only when the token is unescaped.
+**Detected:** 2026-07-05, go-radar-2026-07-05_1710.html — cron wrote the report, wrapped MEDIA tag in backticks, user got summary only.

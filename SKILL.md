@@ -1,7 +1,7 @@
 ---
 name: go-weekly-radar
 description: "Weekly Go ecosystem radar — compiler, stdlib, ecosystem, community. Produces a self-contained HTML report with dark/light mode, collapsible sections, and working links."
-version: 3.0.0
+version: 3.2.0
 author: Runaho (Güneş Korkmaz)
 license: MIT
 metadata:
@@ -98,8 +98,26 @@ See `references/design-decisions.md` for the rationale behind each HTML requirem
 ### Phase 4: Delivery
 
 1. Verify file exists and is non-empty
-2. Include file path in response (e.g. `MEDIA:/absolute/path/to/file.html`)
+2. Include file path in response — **CRITICAL: NEVER wrap `MEDIA:` in backticks, bold, or code fences.** The Telegram gateway only extracts the path when the token is bare. Use a plain `Path:` line (no backticks) followed by a bare `MEDIA:` line. See `references/pitfalls.md` → "MEDIA: tag wrapped in backticks".
 3. Brief highlights summary
+
+### Delivery format example (correct)
+```
+Go Weekly Radar — July 5, 2026
+
+Highlights
+- Headline 1
+- Headline 2
+
+Path: /Users/.../go-radar-2026-07-05_1710.html
+MEDIA:/Users/.../go-radar-2026-07-05_1710.html
+```
+
+### Delivery format example (WRONG — file not attached)
+```
+**Report:** `MEDIA:/Users/.../go-radar-2026-07-05_1710.html`
+```
+The backticks above cause the gateway to treat the whole token as inline code, NOT a media directive.
 
 ## HTML Requirements (Self-Contained, No External Deps)
 
